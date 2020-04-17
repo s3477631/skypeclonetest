@@ -8114,6 +8114,32 @@ let socket = io()
 const video = document.querySelector('video'); 
 let client = {} 
 
+// window. .addEventListener('click', sendMessage())
+window.addEventListener("keydown", handle, true);
+const receive = document.getElementById('received')
+function handle(e){
+    if(e.key == "Enter"){
+        let content = document.getElementById('inputdata').value
+       let msg = document.createElement('li')
+       msg.className ="list-group-item list-group-item-primary bd-highlight h4"
+       msg.append(`${content}`)
+        receive.appendChild(msg)
+        msg.scrollIntoView(false)
+        clear()
+    }
+}
+
+function clear(){
+    document.getElementById('inputdata').value = ""
+}
+
+
+
+// function sendMessage(messageSend){
+//     alert(messageSend)
+// }
+
+
 navigator.mediaDevices.getUserMedia({video: true, audio: true})
 .then(stream => {
     socket.emit("NewClient")
@@ -8162,7 +8188,9 @@ navigator.mediaDevices.getUserMedia({video: true, audio: true})
     }
     function SessionActive(){
         document.write('Session Active. Please Come Back Later')
+        //add event listener here
     }
+
     socket.on('BackOffer', FrontAnswer)
     socket.on('BackAnswer', SignalAnswer)
     socket.on('SessionActive', SessionActive)

@@ -7,20 +7,37 @@
     <title>Video chat: Skype Clone</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
-<body>
-    <div class="container-fluid">  
+<body style="background-color: green;">
+
+    <div class="container-fluid" style="padding-left: 0; padding-right: 0;">  
             <div class="row h-100 w-100">
-                <div class="col-12 col-sm-12 d-flex justify-content-center">
+                <div class="col-6 col-sm-6 d-flex justify-content-center" style="padding-left: 0; padding-right: 0;">
                     <div class="embed-responsive embed-responsive-16by9">
-                        <video class="embed-responsive-item" muted> </video>
+                        <video class="embed-responsive-item" muted style="position: absolute;"> </video>
                     </div>
+      
                 </div>
-                <div class="col-12 col-sm-12 d-flex justify-content-center">
+                <div class="col-6 col-sm-6 d-flex justify-content-center" style="padding-left: 0; padding-right: 0;">
                         <div id="peerDiv" class="embed-responsive embed-responsive-16by9">
                             <video class="embed-responsive-item" muted> </video>
                         </div>
                     </div>
-            </div>
+                </div>
+                    <div class="card mh-30 h-10" style="width: 100vw;">
+                        <div class="card-body" style="background-color: rgba(241, 13, 13, 0.158);">
+                            <ul class="list-group" style="height: 20vh; overflow-y: scroll;" id="received">
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card vw-100">
+                        <div class="card-body">
+                          <p class="card-text" class="vw-100"><input type="text" id="inputdata" value=''  style="border-radius: 3px; width: 90vw; font-family:Arial, Helvetica, sans-serif; font-weight: 900; color: rgb(140, 0, 255);" autofocus placeholder="enta text here for the pangolin"></p>
+                        </div>
+                      </div>
+                  
+                 
+           
     </div>
     <script src="/socket.io/socket.io.js"></script>
     <script src="bundle.js"></script>
