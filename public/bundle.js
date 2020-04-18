@@ -8214,7 +8214,7 @@ function HandleTyping(msg){
     if(msg != name){
         console.log(`${msg} is typing`)
         document.getElementById('progress-spinner').style = "visibility: visible;"
-       document.getElementById('name-here').value = msg
+       document.getElementById('name-here').value = `${msg} is typing...`
     }
     setTimeout(function(){
         document.getElementById('progress-spinner').style = "visibility: hidden;"
