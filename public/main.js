@@ -5,16 +5,18 @@ let client = {}
 
 
 
+
 window.addEventListener("keydown", handle, true);
+
+let typingIn = document.getElementById('inputdata')
+
+typingIn.addEventListener('keydown', sendTyping, true);
 const receive = document.getElementById('received')
 function handle(e){
-
-
     if(e.key == "Enter"){
         let today = new Date();
         let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
         let name = document.getElementById('inputname').value
-        console.log(name)
         document.getElementById('name-picker').style = "display: none;"
         let content = document.getElementById('inputdata').value
         let msg = document.createElement('li')
@@ -34,9 +36,27 @@ function handle(e){
       
 
     }
-
-
 }
+
+function sendTyping(e){
+    let Mename = document.getElementById('inputname').value
+    console.log(Mename)
+    socket.emit('typingaway', Mename)
+}
+
+function HandleTyping(msg){
+    let name = document.getElementById('inputname').value
+    if(msg != name){
+        console.log(`${msg} is typing`)
+        document.getElementById('progress-spinner').style = "visibility: visible;"
+       document.getElementById('name-here').value = msg
+    }
+    setTimeout(function(){
+        document.getElementById('progress-spinner').style = "visibility: hidden;"
+        document.getElementById('name-here').value = ''
+    }, 1500);
+}
+
 
 function clear(){
     document.getElementById('inputdata').value = ""
@@ -99,15 +119,20 @@ navigator.mediaDevices.getUserMedia({video: true, audio: true})
 
     function HandleMsg(msg){
         console.log(msg)
+        otherGuy = msg.name
         let today = new Date();
         let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
         let msgElem = document.createElement('li')
+        
         msgElem.className ="list-group-item list-group-item-success text-right bd-highlight h4"
         msgElem.append(`${msg.name}-${msg.content}-${time}`)
          receive.appendChild(msgElem)
          msgElem.scrollIntoView(false)
     }
 
+    
+
+    socket.on('istyping', HandleTyping)
     socket.on('backmsg', HandleMsg)
     socket.on('BackOffer', FrontAnswer)
     socket.on('BackAnswer', SignalAnswer)

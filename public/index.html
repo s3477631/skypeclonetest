@@ -36,6 +36,16 @@
                         </div>
                     </div>
                 </div>
+                <div id="progress-spinner">
+                    <input id="name-here" value="" readonly><span>is typing</span>
+                  <div id="bottom"> 
+                  </div>
+                  <div id="top">
+                  </div>
+                  <div id="pin">
+                  </div>
+                  
+                  </div>
                     <div class="card mh-30 h-10" style="width: 100vw;">
                         <div class="card-body" style="background-color: rgba(241, 13, 13, 0.158);">
                             <ul class="list-group" style="height: 20vh; overflow-y: scroll;" id="received">
@@ -50,9 +60,48 @@
                       </div>
                   
                  
-           
+        
     </div>
     <script src="/socket.io/socket.io.js"></script>
     <script src="bundle.js"></script>
+
+    <style>
+        #progress-spinner{
+            visibility: hidden;
+        }
+        #bottom{
+            background-color: rgb(0, 4, 236);
+            height: 50px;
+            border-radius: 1000px;
+            width: 50px;
+            position: absolute;
+          }
+          #top {
+            top: 5px;
+            left: 5px;
+            background-color: rgb(194, 18, 179);
+            height: 40px;
+            border-radius: 1000px;
+            width: 40px;
+            position: relative;
+          }
+          #pin{
+             top: -15px;
+            left: 10px;
+            background-color: rgb(221, 216, 216);
+            height: 4px;
+            border-radius: 1000px;
+            width: 30px;
+            position: relative;
+             animation: mymove 1s infinite;
+             animation-timing-function: linear;
+          }
+          
+          @keyframes mymove {
+            from {transform: rotate(0deg)}
+            to {transform: rotate(359deg)}
+          }
+          
+    </style>
 </body>
 </html>

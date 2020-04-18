@@ -21,6 +21,7 @@ io.on('connection', function(socket){
     socket.on('Offer', SendOffer)
     socket.on('Answer', SendAnswer)
     socket.on('textmessage', SendMsg)
+    socket.on('typingaway', TypingNow)
     socket.on('disconnect', Disconnect)
 })
 
@@ -29,6 +30,10 @@ function Disconnect(){
         clients--
     }
         
+}
+
+function TypingNow(msg){
+    this.broadcast.emit('istyping', msg)
 }
 
 function SendMsg(msg){
