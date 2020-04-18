@@ -8114,19 +8114,39 @@ let socket = io()
 const video = document.querySelector('video'); 
 let client = {} 
 
-// window. .addEventListener('click', sendMessage())
+
+
 window.addEventListener("keydown", handle, true);
 const receive = document.getElementById('received')
 function handle(e){
+
+
     if(e.key == "Enter"){
+        let today = new Date();
+        let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        let name = document.getElementById('inputname').value
+        console.log(name)
+        document.getElementById('name-picker').style = "display: none;"
         let content = document.getElementById('inputdata').value
-       let msg = document.createElement('li')
+        let msg = document.createElement('li')
+        let msgContent = {
+            content: content,
+            time: time, 
+            name: name
+        }
+       
        msg.className ="list-group-item list-group-item-primary bd-highlight h4"
-       msg.append(`${content}`)
+       msg.append(`${msgContent.name}- ${msgContent.content}- ${msgContent.time}`)
+       socket.emit('textmessage', msgContent)
         receive.appendChild(msg)
         msg.scrollIntoView(false)
         clear()
+        document.getElementById('inputdata').focus()
+      
+
     }
+
+
 }
 
 function clear(){
@@ -8135,9 +8155,6 @@ function clear(){
 
 
 
-// function sendMessage(messageSend){
-//     alert(messageSend)
-// }
 
 
 navigator.mediaDevices.getUserMedia({video: true, audio: true})
@@ -8191,6 +8208,18 @@ navigator.mediaDevices.getUserMedia({video: true, audio: true})
         //add event listener here
     }
 
+    function HandleMsg(msg){
+        console.log(msg)
+        let today = new Date();
+        let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        let msgElem = document.createElement('li')
+        msgElem.className ="list-group-item list-group-item-success text-right bd-highlight h4"
+        msgElem.append(`${msg.name}-${msg.content}-${time}`)
+         receive.appendChild(msgElem)
+         msgElem.scrollIntoView(false)
+    }
+
+    socket.on('backmsg', HandleMsg)
     socket.on('BackOffer', FrontAnswer)
     socket.on('BackAnswer', SignalAnswer)
     socket.on('SessionActive', SessionActive)

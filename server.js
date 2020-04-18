@@ -20,6 +20,7 @@ io.on('connection', function(socket){
     })
     socket.on('Offer', SendOffer)
     socket.on('Answer', SendAnswer)
+    socket.on('textmessage', SendMsg)
     socket.on('disconnect', Disconnect)
 })
 
@@ -30,6 +31,10 @@ function Disconnect(){
         
 }
 
+function SendMsg(msg){
+    this.broadcast.emit('backmsg', msg)
+}
+
 function SendOffer(offer){
     this.broadcast.emit("BackOffer", offer)
 }
@@ -37,4 +42,8 @@ function SendOffer(offer){
 function SendAnswer(data){
     this.broadcast.emit("BackAnswer", data)
 }
+
+
+
+
 http.listen(port, () => console.log(`Active on port: ${port}` ))
